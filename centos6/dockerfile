@@ -1,0 +1,12 @@
+FROM centos:6
+MAINTAINER jperalta
+
+RUN yum update -y
+RUN yum install -y openssh-server
+
+RUN useradd -ms /bin/bash docker
+RUN echo docker:docker | chpasswd
+
+RUN service sshd restart
+
+CMD ["/usr/sbin/sshd", "-D"]

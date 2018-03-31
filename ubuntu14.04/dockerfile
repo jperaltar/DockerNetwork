@@ -1,0 +1,12 @@
+FROM ubuntu:14.04
+MAINTAINER jperalta
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y openssh-server
+
+RUN useradd -ms /bin/bash docker
+RUN echo docker:docker | chpasswd
+
+RUN service ssh restart
+
+CMD ["/usr/sbin/sshd", "-D"]
